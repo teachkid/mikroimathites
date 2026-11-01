@@ -80,20 +80,23 @@ export default function MobileSimulatorWrapper({ children }) {
 
         {/* Realistic Smartphone Shell */}
         <div
-          className={`relative ${frameWidth} ${frameHeight} bg-slate-950 rounded-[48px] p-2.5 border-[10px] border-slate-900 shadow-[0_30px_70px_rgba(0,0,0,0.7)] flex flex-col transition-all duration-300 ring-2 ring-white/10`}
+          className={`relative ${frameWidth} ${frameHeight} bg-slate-950 rounded-[48px] p-2 border-[10px] border-slate-900 shadow-[0_30px_70px_rgba(0,0,0,0.7)] flex flex-col transition-all duration-300 ring-2 ring-white/10`}
         >
-          {/* Top Dynamic Island / Speaker */}
-          <div className="absolute top-3.5 left-1/2 -translate-x-1/2 w-28 h-5 bg-black rounded-full z-50 flex items-center justify-center pointer-events-none shadow-xs">
-            <div className="w-3 h-3 rounded-full bg-slate-900/80 mr-2 border border-slate-800"></div>
-            <div className="w-2.5 h-2.5 rounded-full bg-sky-950/60 border border-sky-800"></div>
-          </div>
+          {/* Smartphone Status Bar with Integrated Dynamic Island */}
+          <div className="h-8 w-full flex items-center justify-between px-5 text-[11px] font-bold text-slate-800 bg-white/95 rounded-t-[36px] select-none border-b border-amber-100 shrink-0">
+            {/* Time */}
+            <span className="font-black text-xs text-slate-900 pl-1">{currentTime}</span>
 
-          {/* Smartphone Status Bar */}
-          <div className="h-7 w-full flex items-center justify-between px-6 pt-1 text-[11px] font-bold text-slate-800 bg-white/95 rounded-t-[36px] select-none z-40 border-b border-amber-100">
-            <span>{currentTime}</span>
-            <div className="flex items-center gap-1.5 text-slate-700">
+            {/* Dynamic Island Pill cleanly centered without overlapping content */}
+            <div className="w-24 h-4 bg-black rounded-full flex items-center justify-center gap-2 shadow-xs">
+              <div className="w-2 h-2 rounded-full bg-slate-900 border border-slate-800"></div>
+              <div className="w-2 h-2 rounded-full bg-sky-950/80 border border-sky-800"></div>
+            </div>
+
+            {/* Status Icons */}
+            <div className="flex items-center gap-1.5 text-slate-700 pr-1">
               <Wifi className="w-3.5 h-3.5" />
-              <span className="text-[10px] font-black">5G</span>
+              <span className="text-[10px] font-black text-slate-800">5G</span>
               <BatteryCharging className="w-4 h-4 text-emerald-600" />
             </div>
           </div>
