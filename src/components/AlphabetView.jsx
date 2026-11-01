@@ -17,10 +17,10 @@ export default function AlphabetView({ onAddStar, soundEnabled }) {
 
   const current = ALPHABET_DATA[selectedIndex];
 
-  // Pronounce word association (e.g. "όπως αρκούδα", χωρίς το γράμμα)
+  // Pronounce letter association (e.g. "Α όπως αρκούδα", "Β όπως βάτραχος")
   const speakCurrent = useCallback(() => {
     if (soundEnabled) {
-      speakText(`όπως ${current.word}`);
+      speakText(`${current.letterUpper} όπως ${current.word}`);
     }
   }, [current, soundEnabled]);
 
