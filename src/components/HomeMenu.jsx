@@ -19,16 +19,6 @@ export default function HomeMenu({ onSelectCategory, onOpenPrintables }) {
       badge: '24 Γράμματα',
     },
     {
-      id: 'spelling',
-      title: 'Φτιάξε τη Λέξη',
-      subtitle: 'Βάλε τα γράμματα στη σειρά & μάθε ορθογραφία!',
-      emoji: '🐱',
-      color: 'from-orange-400 to-amber-500',
-      border: 'border-orange-300',
-      bgGlow: 'hover:shadow-orange-300/60',
-      badge: 'ΝΕΟ • Λέξεις',
-    },
-    {
       id: 'numbers',
       title: 'Αριθμοί',
       subtitle: '1 – 25, μέτρησε διασκεδαστικά',

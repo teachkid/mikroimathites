@@ -12,7 +12,6 @@ import PianoView from './components/PianoView';
 import BalloonPopView from './components/BalloonPopView';
 import ShadowMatchingView from './components/ShadowMatchingView';
 import StickerAlbumView from './components/StickerAlbumView';
-import SpellingGameView from './components/SpellingGameView';
 import AuthModal from './components/AuthModal';
 import ParentZoneModal from './components/ParentZoneModal';
 import ScoreboardModal from './components/ScoreboardModal';
@@ -114,13 +113,6 @@ function MainApp() {
 
           {currentScreen === 'alphabet' && (
             <AlphabetView
-              onAddStar={addStarToActiveChild}
-              soundEnabled={soundEnabled}
-            />
-          )}
-
-          {currentScreen === 'spelling' && (
-            <SpellingGameView
               onAddStar={addStarToActiveChild}
               soundEnabled={soundEnabled}
             />
