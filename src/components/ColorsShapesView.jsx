@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { COLORS_DATA, SHAPES_DATA } from '../data/colorsAndShapes';
-import { speakText, playPop, playChime, playFanfare } from '../utils/sound';
-import confetti from 'canvas-confetti';
-import { Volume2, Sparkles } from 'lucide-react';
+import { speakText, playPop } from '../utils/sound';
+import { Volume2 } from 'lucide-react';
 
 export default function ColorsShapesView({ onAddStar, soundEnabled }) {
   const [tab, setTab] = useState('colors'); // 'colors' or 'shapes'
@@ -65,23 +64,18 @@ export default function ColorsShapesView({ onAddStar, soundEnabled }) {
           {/* Active Color Spotlight Card */}
           <div className="bg-white rounded-3xl p-6 sm:p-8 border-4 border-amber-200 shadow-xl flex flex-col items-center text-center mb-8">
             <div
-              className="w-32 h-32 sm:w-40 sm:h-40 rounded-full shadow-inner border-4 border-white flex items-center justify-center text-6xl shadow-md transition-all transform hover:scale-110 mb-4 cursor-pointer"
+              className="w-32 h-32 sm:w-40 sm:h-40 rounded-full shadow-inner border-4 border-white shadow-lg transition-all transform hover:scale-110 mb-4 cursor-pointer"
               style={{ backgroundColor: selectedColor.hex }}
               onClick={() => handleColorClick(selectedColor)}
-            >
-              <span>{selectedColor.emoji}</span>
-            </div>
+            />
 
-            <h3 className="text-3xl sm:text-4xl font-black text-slate-800 mb-1">
+            <h3 className="text-3xl sm:text-4xl font-black text-slate-800 mb-4">
               {selectedColor.name}
             </h3>
-            <p className="text-slate-600 font-bold text-lg mb-3">
-              Όπως {selectedColor.sample} {selectedColor.emoji}
-            </p>
 
             <button
               onClick={() => handleColorClick(selectedColor)}
-              className="flex items-center gap-2 bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold px-4 py-2 rounded-full"
+              className="flex items-center gap-2 bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold px-5 py-2.5 rounded-full transition-transform active:scale-95"
             >
               <Volume2 className="w-5 h-5" />
               <span>Άκουσε το χρώμα</span>
@@ -99,11 +93,9 @@ export default function ColorsShapesView({ onAddStar, soundEnabled }) {
                 }`}
               >
                 <div
-                  className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shadow-sm"
+                  className="w-16 h-16 rounded-2xl shadow-sm border-2 border-slate-100"
                   style={{ backgroundColor: col.hex }}
-                >
-                  {col.emoji}
-                </div>
+                />
                 <span className="font-black text-slate-800 text-lg">{col.name}</span>
               </button>
             ))}
@@ -119,15 +111,12 @@ export default function ColorsShapesView({ onAddStar, soundEnabled }) {
             >
               {selectedShape.icon}
             </div>
-            <h3 className="text-3xl sm:text-4xl font-black text-slate-800 mb-1">
+            <h3 className="text-3xl sm:text-4xl font-black text-slate-800 mb-4">
               {selectedShape.name}
             </h3>
-            <p className="text-slate-600 font-bold text-lg mb-3">
-              {selectedShape.desc}
-            </p>
             <button
               onClick={() => handleShapeClick(selectedShape)}
-              className="flex items-center gap-2 bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold px-4 py-2 rounded-full"
+              className="flex items-center gap-2 bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold px-5 py-2.5 rounded-full transition-transform active:scale-95"
             >
               <Volume2 className="w-5 h-5" />
               <span>Άκουσε το σχήμα</span>
