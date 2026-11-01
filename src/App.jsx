@@ -22,7 +22,16 @@ import { setSoundMuted } from './utils/sound';
 
 function MainApp() {
   const [currentScreen, setCurrentScreen] = useState('home');
-  const [soundEnabled, setSoundEnabled] = useState(true);
+  const [soundEnabled, setSoundEnabled] = useState(() => {
+    try {
+      const saved = localStorage.getItem('mikroi_mathites_sound');
+      const isEnabled = saved !== 'false';
+      setSoundMuted(!isEnabled);
+      return isEnabled;
+    } catch (e) {
+      return true;
+    }
+  });
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isParentZoneOpen, setIsParentZoneOpen] = useState(false);
   const [isScoreboardOpen, setIsScoreboardOpen] = useState(false);
@@ -48,6 +57,9 @@ function MainApp() {
     setSoundEnabled((prev) => {
       const next = !prev;
       setSoundMuted(!next);
+      try {
+        localStorage.setItem('mikroi_mathites_sound', String(next));
+      } catch (e) {}
       return next;
     });
   };

@@ -136,7 +136,7 @@ export default function PianoView({ onAddStar, soundEnabled }) {
       )}
 
       {/* Piano Keys Board */}
-      <div className="bg-slate-900 p-4 sm:p-6 rounded-3xl shadow-2xl border-4 border-amber-300 flex justify-center items-end gap-1.5 sm:gap-3 min-h-[300px] sm:min-h-[380px] touch-none">
+      <div className="bg-slate-900 p-2 sm:p-6 rounded-3xl shadow-2xl border-4 border-amber-300 flex justify-center items-end gap-1 sm:gap-3 min-h-[240px] sm:min-h-[380px] touch-none select-none overflow-hidden">
         {PIANO_KEYS.map((key, idx) => {
           const isTarget = targetKeyIndex === idx;
           const isPressed = activeKey === idx;
@@ -145,24 +145,24 @@ export default function PianoView({ onAddStar, soundEnabled }) {
             <button
               key={key.note}
               onPointerDown={() => handleKeyPress(idx)}
-              className={`relative flex-1 max-w-[85px] h-64 sm:h-80 rounded-2xl sm:rounded-3xl bg-gradient-to-b ${
+              className={`relative flex-1 min-w-0 max-w-[85px] h-52 sm:h-80 rounded-xl sm:rounded-3xl bg-gradient-to-b ${
                 key.color
-              } flex flex-col justify-between items-center py-4 text-white font-black transition-all transform active:scale-95 cursor-pointer border-b-8 ${
+              } flex flex-col justify-between items-center py-3 sm:py-4 text-white font-black transition-all transform active:scale-95 cursor-pointer border-b-6 sm:border-b-8 ${
                 key.shadow
               } ${
                 isTarget
-                  ? 'scale-105 ring-4 ring-yellow-300 shadow-yellow-300/80 shadow-2xl animate-pulse'
+                  ? 'scale-105 ring-3 sm:ring-4 ring-yellow-300 shadow-yellow-300/80 shadow-2xl animate-pulse z-10'
                   : ''
               } ${isPressed ? 'translate-y-2 border-b-2 brightness-110' : ''}`}
             >
               {/* Note Icon / Indicator */}
-              <div className="text-2xl sm:text-3xl">
+              <div className="text-xl sm:text-3xl">
                 {isTarget ? '⭐' : '🎵'}
               </div>
 
               {/* Note Greek Name */}
-              <div className="text-center">
-                <span className="text-lg sm:text-2xl font-black block tracking-tight">
+              <div className="text-center px-0.5">
+                <span className="text-xs sm:text-2xl font-black block tracking-tight">
                   {key.note}
                 </span>
               </div>

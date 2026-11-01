@@ -141,24 +141,24 @@ export default function HomeMenu({ onSelectCategory }) {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-4 sm:py-8 animate-pop">
+    <div className="max-w-6xl mx-auto px-3 sm:px-4 py-3 sm:py-8 animate-pop">
       {/* Welcome Banner */}
-      <div className="text-center mb-6 sm:mb-10">
-        <h2 className="text-3xl sm:text-5xl font-black text-amber-950 mb-2 drop-shadow-sm">
+      <div className="text-center mb-5 sm:mb-8">
+        <h2 className="text-2xl sm:text-4xl font-black text-amber-950 mb-1 sm:mb-2 drop-shadow-sm">
           Τι θέλεις να μάθουμε σήμερα; 🌟
         </h2>
-        <p className="text-base sm:text-xl font-bold text-amber-800">
+        <p className="text-sm sm:text-lg font-bold text-amber-800">
           Διάλεξε ένα παιχνίδι και ξεκινάμε!
         </p>
       </div>
 
       {/* Grid of Activities */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-5 sm:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {categories.map((cat) => (
           <button
             key={cat.id}
             onClick={() => handleCardClick(cat)}
-            className={`group relative flex flex-col items-center text-center p-6 rounded-3xl bg-gradient-to-b ${cat.color} text-white border-4 ${cat.border} shadow-lg ${cat.bgGlow} kid-shadow-active transition-all transform hover:-translate-y-2 cursor-pointer active:scale-95`}
+            className={`group relative flex flex-col items-center text-center p-5 sm:p-6 rounded-3xl bg-gradient-to-b ${cat.color} text-white border-4 ${cat.border} shadow-lg ${cat.bgGlow} kid-shadow-active transition-all transform hover:-translate-y-2 cursor-pointer active:scale-95`}
           >
             {/* Top Badge */}
             <span className="absolute top-3.5 right-3.5 bg-white/25 backdrop-blur-sm text-white text-[11px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full">

@@ -62,10 +62,10 @@ export default function Header({
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-white/85 backdrop-blur-md border-b-4 border-amber-300 px-3 sm:px-6 py-2 sm:py-2.5 shadow-md pt-[max(0.6rem,env(safe-area-inset-top))]">
-      <div className="max-w-6xl mx-auto flex items-center justify-between gap-2">
+    <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b-4 border-amber-300 px-2 sm:px-6 py-1.5 sm:py-2.5 shadow-md pt-[max(0.5rem,env(safe-area-inset-top))]">
+      <div className="max-w-6xl mx-auto flex items-center justify-between gap-1 sm:gap-2">
         {/* Left Side: Home or Back Button */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2">
           {currentScreen !== 'home' ? (
             <button
               onClick={() => {
