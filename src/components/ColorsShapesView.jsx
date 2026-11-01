@@ -13,7 +13,7 @@ export default function ColorsShapesView({ onAddStar, soundEnabled }) {
     playPop();
     setSelectedColor(col);
     if (soundEnabled) {
-      speakText(`${col.name}! Όπως ${col.sample}!`);
+      speakText(col.name);
     }
     onAddStar();
   };
@@ -22,7 +22,7 @@ export default function ColorsShapesView({ onAddStar, soundEnabled }) {
     playPop();
     setSelectedShape(shape);
     if (soundEnabled) {
-      speakText(`${shape.name}! ${shape.desc}!`);
+      speakText(shape.name);
     }
     onAddStar();
   };
