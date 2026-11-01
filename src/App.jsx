@@ -18,6 +18,8 @@ import ScoreboardModal from './components/ScoreboardModal';
 import StarShopModal from './components/StarShopModal';
 import FeedbackModal from './components/FeedbackModal';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { ViewModeProvider } from './context/ViewModeContext';
+import MobileSimulatorWrapper from './components/MobileSimulatorWrapper';
 import { setSoundMuted } from './utils/sound';
 
 function MainApp() {
@@ -214,7 +216,7 @@ function MainApp() {
         <p className="text-[11px] text-amber-800/60 mt-0.5">
           💡 Σε κινητό ή tablet: Πάτησε «Προσθήκη στην οθόνη αφετηρίας» για εμπειρία πλήρους οθόνης σαν πραγματική εφαρμογή!
         </p>
-        <div className="mt-2">
+        <div className="mt-2.5 flex flex-wrap items-center justify-center gap-2">
           <button
             onClick={() => setIsFeedbackOpen(true)}
             className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-200/80 hover:bg-amber-300 text-amber-950 text-[11px] sm:text-xs font-black transition-all active:scale-95 shadow-xs"
@@ -230,7 +232,11 @@ function MainApp() {
 export default function App() {
   return (
     <AuthProvider>
-      <MainApp />
+      <ViewModeProvider>
+        <MobileSimulatorWrapper>
+          <MainApp />
+        </MobileSimulatorWrapper>
+      </ViewModeProvider>
     </AuthProvider>
   );
 }

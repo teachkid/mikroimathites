@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { playPianoNote, playFanfare, playPop, speakText } from '../utils/sound';
 import { useAuth } from '../context/AuthContext';
+import { useViewMode } from '../context/ViewModeContext';
 import confetti from 'canvas-confetti';
-import { Music, Award, RotateCcw, Sparkles } from 'lucide-react';
+import { Music, Award, RotateCcw, Sparkles, Keyboard } from 'lucide-react';
 
 const PIANO_KEYS = [
-  { note: 'ΝΤΟ', freq: 261.63, color: 'from-red-400 to-rose-500', shadow: 'border-red-600', keyName: 'C' },
-  { note: 'ΡΕ', freq: 293.66, color: 'from-orange-400 to-amber-500', shadow: 'border-orange-600', keyName: 'D' },
-  { note: 'ΜΙ', freq: 329.63, color: 'from-yellow-300 to-amber-400', shadow: 'border-yellow-600', keyName: 'E' },
-  { note: 'ΦΑ', freq: 349.23, color: 'from-emerald-400 to-green-500', shadow: 'border-emerald-600', keyName: 'F' },
-  { note: 'ΣΟΛ', freq: 392.00, color: 'from-cyan-400 to-teal-500', shadow: 'border-cyan-600', keyName: 'G' },
-  { note: 'ΛΑ', freq: 440.00, color: 'from-blue-400 to-indigo-500', shadow: 'border-blue-600', keyName: 'A' },
-  { note: 'ΣΙ', freq: 493.88, color: 'from-purple-400 to-indigo-600', shadow: 'border-purple-600', keyName: 'B' },
-  { note: 'ΝΤΟ²', freq: 523.25, color: 'from-pink-400 to-rose-500', shadow: 'border-pink-600', keyName: 'C2' },
+  { note: 'ΝΤΟ', freq: 261.63, color: 'from-red-400 to-rose-500', shadow: 'border-red-600', keyName: 'C', keyShortcut: '1' },
+  { note: 'ΡΕ', freq: 293.66, color: 'from-orange-400 to-amber-500', shadow: 'border-orange-600', keyName: 'D', keyShortcut: '2' },
+  { note: 'ΜΙ', freq: 329.63, color: 'from-yellow-300 to-amber-400', shadow: 'border-yellow-600', keyName: 'E', keyShortcut: '3' },
+  { note: 'ΦΑ', freq: 349.23, color: 'from-emerald-400 to-green-500', shadow: 'border-emerald-600', keyName: 'F', keyShortcut: '4' },
+  { note: 'ΣΟΛ', freq: 392.00, color: 'from-cyan-400 to-teal-500', shadow: 'border-cyan-600', keyName: 'G', keyShortcut: '5' },
+  { note: 'ΛΑ', freq: 440.00, color: 'from-blue-400 to-indigo-500', shadow: 'border-blue-600', keyName: 'A', keyShortcut: '6' },
+  { note: 'ΣΙ', freq: 493.88, color: 'from-purple-400 to-indigo-600', shadow: 'border-purple-600', keyName: 'B', keyShortcut: '7' },
+  { note: 'ΝΤΟ²', freq: 523.25, color: 'from-pink-400 to-rose-500', shadow: 'border-pink-600', keyName: 'C2', keyShortcut: '8' },
 ];
 
 const SONGS = [
@@ -32,9 +33,34 @@ const SONGS = [
 
 export default function PianoView({ onAddStar, soundEnabled }) {
   const { recordStat } = useAuth();
+  const { effectiveMode } = useViewMode();
+  const isPC = effectiveMode === 'pc';
+
   const [selectedSongIndex, setSelectedSongIndex] = useState(null);
   const [songStep, setSongStep] = useState(0);
   const [activeKey, setActiveKey] = useState(null);
+
+  // PC Physical Keyboard support (Keys 1-8 or A-K)
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      const keyMap = {
+        '1': 0, 'a': 0, 'A': 0,
+        '2': 1, 's': 1, 'S': 1,
+        '3': 2, 'd': 2, 'D': 2,
+        '4': 3, 'f': 3, 'F': 3,
+        '5': 4, 'g': 4, 'G': 4,
+        '6': 5, 'h': 5, 'H': 5,
+        '7': 6, 'j': 6, 'J': 6,
+        '8': 7, 'k': 7, 'K': 7,
+      };
+      if (keyMap[e.key] !== undefined) {
+        handleKeyPress(keyMap[e.key]);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedSongIndex, songStep]);
 
   const handleKeyPress = (keyIndex) => {
     const keyData = PIANO_KEYS[keyIndex];
@@ -160,16 +186,29 @@ export default function PianoView({ onAddStar, soundEnabled }) {
                 {isTarget ? '⭐' : '🎵'}
               </div>
 
-              {/* Note Greek Name */}
+              {/* Note Greek Name and Keyboard Shortcut */}
               <div className="text-center px-0.5">
                 <span className="text-xs sm:text-2xl font-black block tracking-tight">
                   {key.note}
                 </span>
+                {isPC && (
+                  <span className="inline-block mt-1 bg-black/30 backdrop-blur-xs text-[10px] sm:text-xs font-mono font-bold px-1.5 py-0.5 rounded-md border border-white/30 text-white/90">
+                    [{key.keyShortcut}]
+                  </span>
+                )}
               </div>
             </button>
           );
         })}
       </div>
+
+      {/* PC Keyboard hint */}
+      {isPC && (
+        <div className="mt-4 text-center text-xs font-bold text-amber-900/70 flex items-center justify-center gap-1.5">
+          <Keyboard className="w-4 h-4 text-amber-700" />
+          <span>Έκδοση Υπολογιστή: Παίξτε τις νότες με τα πλήκτρα <strong>1 έως 8</strong> στο πληκτρολόγιο!</span>
+        </div>
+      )}
     </div>
   );
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Volume2, VolumeX, Maximize, Minimize, ArrowLeft, Star, User, Settings, Trophy, Lightbulb } from 'lucide-react';
 import { playPop } from '../utils/sound';
 import { useAuth } from '../context/AuthContext';
+import ViewModeSwitcher from './ViewModeSwitcher';
 
 export default function Header({
   currentScreen,
@@ -208,6 +209,9 @@ export default function Header({
               <Lightbulb className="w-4 h-4 sm:w-5 sm:h-5 text-amber-600 stroke-[2.5]" />
             </button>
           )}
+
+          {/* View Mode Switcher (PC / Mobile) */}
+          <ViewModeSwitcher />
 
           {/* Fullscreen (if supported) */}
           {canFullscreen && (

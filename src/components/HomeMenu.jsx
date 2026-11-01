@@ -1,7 +1,11 @@
 import React from 'react';
 import { playPop } from '../utils/sound';
+import { useViewMode } from '../context/ViewModeContext';
+import { Monitor, Smartphone, Sparkles } from 'lucide-react';
 
 export default function HomeMenu({ onSelectCategory }) {
+  const { effectiveMode } = useViewMode();
+  const isMobile = effectiveMode === 'mobile';
   const categories = [
     {
       id: 'alphabet',
@@ -153,40 +157,60 @@ export default function HomeMenu({ onSelectCategory }) {
       </div>
 
       {/* Grid of Activities */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+      <div
+        className={
+          isMobile
+            ? 'grid grid-cols-1 gap-3.5'
+            : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6'
+        }
+      >
         {categories.map((cat) => (
           <button
             key={cat.id}
             onClick={() => handleCardClick(cat)}
-            className={`group relative flex flex-col items-center text-center p-5 sm:p-6 rounded-3xl bg-gradient-to-b ${cat.color} text-white border-4 ${cat.border} shadow-lg ${cat.bgGlow} kid-shadow-active transition-all transform hover:-translate-y-2 cursor-pointer active:scale-95`}
+            className={`group relative flex ${
+              isMobile ? 'flex-row items-center text-left p-4 gap-4' : 'flex-col items-center text-center p-5 sm:p-6'
+            } rounded-3xl bg-gradient-to-b ${cat.color} text-white border-4 ${cat.border} shadow-lg ${cat.bgGlow} kid-shadow-active transition-all transform hover:-translate-y-2 cursor-pointer active:scale-95`}
           >
             {/* Top Badge */}
-            <span className="absolute top-3.5 right-3.5 bg-white/25 backdrop-blur-sm text-white text-[11px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full">
+            <span className={`absolute ${isMobile ? 'top-2.5 right-3 text-[10px]' : 'top-3.5 right-3.5 text-[11px]'} bg-white/25 backdrop-blur-sm text-white font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full`}>
               {cat.badge}
             </span>
 
             {/* Giant Animated Emoji */}
-            <div className="text-6xl sm:text-7xl mb-3 group-hover:scale-125 transition-transform duration-300 filter drop-shadow-md">
+            <div className={`${isMobile ? 'text-4xl sm:text-5xl shrink-0' : 'text-6xl sm:text-7xl mb-3'} group-hover:scale-120 transition-transform duration-300 filter drop-shadow-md`}>
               {cat.emoji}
             </div>
 
-            {/* Title */}
-            <h3 className="text-2xl font-black tracking-tight mb-1 drop-shadow">
-              {cat.title}
-            </h3>
+            <div className={isMobile ? 'flex-1 pr-14' : ''}>
+              {/* Title */}
+              <h3 className={`${isMobile ? 'text-lg' : 'text-2xl'} font-black tracking-tight mb-0.5 drop-shadow`}>
+                {cat.title}
+              </h3>
 
-            {/* Subtitle */}
-            <p className="text-white/90 font-bold text-xs sm:text-sm leading-snug">
-              {cat.subtitle}
-            </p>
+              {/* Subtitle */}
+              <p className="text-white/90 font-bold text-xs sm:text-sm leading-snug">
+                {cat.subtitle}
+              </p>
+            </div>
 
             {/* Tap prompt */}
-            <div className="mt-4 bg-white text-slate-800 font-black px-4 py-1.5 rounded-full text-xs sm:text-sm kid-shadow-sm group-hover:bg-yellow-200 transition-colors">
-              Παίξε τώρα! ✨
-            </div>
+            {!isMobile && (
+              <div className="mt-4 bg-white text-slate-800 font-black px-4 py-1.5 rounded-full text-xs sm:text-sm kid-shadow-sm group-hover:bg-yellow-200 transition-colors">
+                Παίξε τώρα! ✨
+              </div>
+            )}
           </button>
         ))}
       </div>
+
+      {/* PC Keyboard navigation tip */}
+      {!isMobile && (
+        <div className="mt-8 text-center text-xs font-bold text-amber-900/60 flex items-center justify-center gap-2">
+          <Monitor className="w-4 h-4 text-amber-700" />
+          <span>Έκδοση Υπολογιστή • Χρησιμοποιήστε το πληκτρολόγιο (πλήκτρο Esc για Επιστροφή στην Αρχική)</span>
+        </div>
+      )}
     </div>
   );
 }

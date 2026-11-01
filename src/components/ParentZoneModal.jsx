@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { playPop, playFanfare } from '../utils/sound';
 import { X, ShieldCheck, UserPlus, LogOut, Star, CheckCircle, Baby } from 'lucide-react';
+import ViewModeSwitcher from './ViewModeSwitcher';
 
 const AVATARS = ['🦁', '🐼', '🦄', '🚀', '🐱', '🐶', '🐻', '🐸', '🦋', '🦖'];
 
@@ -267,6 +268,21 @@ export default function ParentZoneModal({ isOpen, onClose, onOpenFeedback }) {
                     </div>
                   );
                 })}
+              </div>
+            </div>
+
+            {/* View Mode Preferences */}
+            <div className="mb-4 p-4 rounded-2xl bg-slate-50 border-2 border-slate-200">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                <div>
+                  <h4 className="text-xs font-black text-slate-900 flex items-center gap-1.5">
+                    <span>🖥️ Επιλογή Έκδοσης Προβολής</span>
+                  </h4>
+                  <p className="text-[11px] text-slate-600 font-bold mt-0.5">
+                    Επιλέξτε προβολή για Υπολογιστή (PC) ή Κινητό (Mobile)
+                  </p>
+                </div>
+                <ViewModeSwitcher />
               </div>
             </div>
 
