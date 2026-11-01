@@ -72,6 +72,24 @@ const WORKSHEETS = [
         <p style="font-size: 16px; font-weight: bold; color: #444;">Χρωμάτισε τα ζωάκια με τα πιο όμορφα χρώματα!</p>
       </div>
     `
+  },
+  {
+    id: 'coloring_church',
+    title: 'Χρωμοσελίδα: Ελληνικό Εξωκλήσι & Περιστέρι',
+    category: 'coloring',
+    badge: 'Παράδοση',
+    description: 'Εκτυπώσιμο σχέδιο με το γραφικό ασπρονήσι, το καμπαναριό και το περιστέρι της ειρήνης.',
+    emoji: '⛪',
+    generateHTML: () => `
+      <div style="font-family: sans-serif; text-align: center; padding: 20px;">
+        <h1 style="margin: 0; font-size: 24px; color: #333;">🎈 Μικροί Μαθητές • Ελληνικό Τοπίο & Παράδοση</h1>
+        <p style="font-size: 14px; color: #666; margin-bottom: 30px;">Όνομα: _____________________ Ημερομηνία: ___________</p>
+        <div style="font-size: 110px; margin: 30px 0; border: 4px dashed #999; border-radius: 20px; padding: 30px; display: inline-block;">
+          ⛪ 🕊️ ⛵ ☀️
+        </div>
+        <p style="font-size: 16px; font-weight: bold; color: #444;">Χρωμάτισε το όμορφο εκκλησάκι, το περιστέρι και τη θάλασσα με γαλάζιο και άσπρο!</p>
+      </div>
+    `
   }
 ];
 

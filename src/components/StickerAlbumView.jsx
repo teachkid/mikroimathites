@@ -22,6 +22,12 @@ const SCENES = [
     bg: 'from-slate-900 via-purple-900 to-indigo-950',
     availableStickers: ['🚀', '🛸', '👨‍🚀', '🪐', '🌙', '⭐', '☄️', '👾'],
   },
+  {
+    id: 'island',
+    name: '⛪ Ελληνικό Τοπίο',
+    bg: 'from-sky-300 via-blue-400 to-indigo-600',
+    availableStickers: ['⛪', '🕊️', '⛵', '☀️', '🌸', '🫒', '🐬', '🕯️'],
+  },
 ];
 
 export default function StickerAlbumView({ stars, soundEnabled }) {

@@ -16,4 +16,5 @@ export const SHAPES_DATA = [
   { id: 'star', name: 'Αστέρι', desc: 'Λαμπερό στον ουρανό', icon: '⭐' },
   { id: 'heart', name: 'Καρδιά', desc: 'Γεμάτη αγάπη', icon: '❤️' },
   { id: 'diamond', name: 'Ρόμβος', desc: 'Σαν χαρταετός', icon: '🔷' },
+  { id: 'cross', name: 'Σταυρός', desc: 'Με 4 ίσα άκρα', icon: '✝️' },
 ];
