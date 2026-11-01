@@ -5,7 +5,7 @@ import { X, ShieldCheck, UserPlus, LogOut, Star, CheckCircle, Baby } from 'lucid
 
 const AVATARS = ['🦁', '🐼', '🦄', '🚀', '🐱', '🐶', '🐻', '🐸', '🦋', '🦖'];
 
-export default function ParentZoneModal({ isOpen, onClose }) {
+export default function ParentZoneModal({ isOpen, onClose, onOpenFeedback }) {
   const { currentUser, activeChild, switchChild, addChild, logout } = useAuth();
 
   // Parent Gate Math Challenge state
@@ -267,6 +267,31 @@ export default function ParentZoneModal({ isOpen, onClose }) {
                     </div>
                   );
                 })}
+              </div>
+            </div>
+
+            {/* Feedback / Ideas & Bug Reports */}
+            <div className="mb-5 p-4 rounded-2xl bg-amber-50/80 border-2 border-amber-200">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <h4 className="text-xs font-black text-amber-950 flex items-center gap-1.5">
+                    <span>💡 Πρόταση Ιδέας ή 🛠️ Αναφορά Προβλήματος</span>
+                  </h4>
+                  <p className="text-[11px] text-amber-800/80 font-bold mt-0.5">
+                    Έχετε πρόταση για νέο παιχνίδι ή παρατηρήσατε κάποιο σφάλμα;
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    playPop();
+                    onClose();
+                    onOpenFeedback?.();
+                  }}
+                  className="px-3.5 py-1.5 rounded-xl bg-amber-400 hover:bg-amber-500 text-amber-950 font-black text-xs kid-shadow-sm active:scale-95 transition-all self-start sm:self-auto"
+                >
+                  Άνοιγμα Φόρμας
+                </button>
               </div>
             </div>
 

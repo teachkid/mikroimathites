@@ -16,6 +16,7 @@ import AuthModal from './components/AuthModal';
 import ParentZoneModal from './components/ParentZoneModal';
 import ScoreboardModal from './components/ScoreboardModal';
 import StarShopModal from './components/StarShopModal';
+import FeedbackModal from './components/FeedbackModal';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { setSoundMuted } from './utils/sound';
 
@@ -26,6 +27,7 @@ function MainApp() {
   const [isParentZoneOpen, setIsParentZoneOpen] = useState(false);
   const [isScoreboardOpen, setIsScoreboardOpen] = useState(false);
   const [isShopOpen, setIsShopOpen] = useState(false);
+  const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
 
   const { activeChild, addStarToActiveChild } = useAuth();
 
@@ -66,6 +68,7 @@ function MainApp() {
           onOpenParentZone={() => setIsParentZoneOpen(true)}
           onOpenScoreboard={() => setIsScoreboardOpen(true)}
           onOpenShop={() => setIsShopOpen(true)}
+          onOpenFeedback={() => setIsFeedbackOpen(true)}
         />
 
         <main className="pb-8 sm:pb-12">
@@ -169,6 +172,7 @@ function MainApp() {
       <ParentZoneModal
         isOpen={isParentZoneOpen}
         onClose={() => setIsParentZoneOpen(false)}
+        onOpenFeedback={() => setIsFeedbackOpen(true)}
       />
 
       {/* Scoreboard & Achievements Modal */}
@@ -184,6 +188,12 @@ function MainApp() {
         onClose={() => setIsShopOpen(false)}
       />
 
+      {/* Feedback & Bug Reporting Modal */}
+      <FeedbackModal
+        isOpen={isFeedbackOpen}
+        onClose={() => setIsFeedbackOpen(false)}
+      />
+
       {/* Cross-Platform Footer with Safe Area Bottom Padding */}
       <footer className="text-center py-4 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] text-xs sm:text-sm text-amber-900/70 font-bold border-t border-amber-200/60 bg-amber-50/60">
         <p>
@@ -192,6 +202,14 @@ function MainApp() {
         <p className="text-[11px] text-amber-800/60 mt-0.5">
           💡 Σε κινητό ή tablet: Πάτησε «Προσθήκη στην οθόνη αφετηρίας» για εμπειρία πλήρους οθόνης σαν πραγματική εφαρμογή!
         </p>
+        <div className="mt-2">
+          <button
+            onClick={() => setIsFeedbackOpen(true)}
+            className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-200/80 hover:bg-amber-300 text-amber-950 text-[11px] sm:text-xs font-black transition-all active:scale-95 shadow-xs"
+          >
+            <span>💡 Πρότεινε Ιδέα ή Αναφορά Προβλήματος</span>
+          </button>
+        </div>
       </footer>
     </div>
   );

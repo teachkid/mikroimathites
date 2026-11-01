@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Volume2, VolumeX, Maximize, Minimize, ArrowLeft, Star, User, Settings, Trophy } from 'lucide-react';
+import { Volume2, VolumeX, Maximize, Minimize, ArrowLeft, Star, User, Settings, Trophy, Lightbulb } from 'lucide-react';
 import { playPop } from '../utils/sound';
 import { useAuth } from '../context/AuthContext';
 
@@ -12,6 +12,7 @@ export default function Header({
   onOpenParentZone,
   onOpenScoreboard,
   onOpenShop,
+  onOpenFeedback,
 }) {
   const { currentUser, activeChild, isGuest } = useAuth();
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -193,6 +194,20 @@ export default function Header({
               <VolumeX className="w-4 h-4 sm:w-5 sm:h-5 text-rose-500 stroke-[2.5]" />
             )}
           </button>
+
+          {/* Feedback & Ideas Button */}
+          {onOpenFeedback && (
+            <button
+              onClick={() => {
+                playPop();
+                onOpenFeedback();
+              }}
+              className="p-2 bg-amber-50 hover:bg-amber-100 active:bg-amber-200 text-amber-800 rounded-2xl border-2 border-amber-200 kid-shadow-sm transition-all min-h-[40px] min-w-[40px] flex items-center justify-center"
+              title="Πρότεινε Ιδέα ή Ανάφερε Πρόβλημα"
+            >
+              <Lightbulb className="w-4 h-4 sm:w-5 sm:h-5 text-amber-600 stroke-[2.5]" />
+            </button>
+          )}
 
           {/* Fullscreen (if supported) */}
           {canFullscreen && (
