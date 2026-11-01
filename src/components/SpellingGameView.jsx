@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { playPop, playFanfare, playChime, speakText, speakCheer } from '../utils/sound';
+import { playPop, playFanfare, playChime, speakText } from '../utils/sound';
 import { useAuth } from '../context/AuthContext';
 import confetti from 'canvas-confetti';
 import { Volume2, Award, RotateCcw, Lightbulb, ArrowRight, CheckCircle2, Sparkles } from 'lucide-react';
@@ -89,7 +89,6 @@ export default function SpellingGameView({ onAddStar, soundEnabled }) {
         // SUCCESS!
         setIsSuccess(true);
         playFanfare();
-        speakCheer();
         confetti({
           particleCount: 90,
           spread: 75,

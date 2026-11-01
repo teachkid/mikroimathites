@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { playPop, playFanfare, speakCheer } from '../utils/sound';
+import { playPop, playFanfare } from '../utils/sound';
 import confetti from 'canvas-confetti';
 import { ArrowRight, Sparkles } from 'lucide-react';
 
@@ -112,7 +112,6 @@ export default function MathView({ onAddStar }) {
     if (val === correctAnswer) {
       setSolved(true);
       playFanfare();
-      speakCheer();
       confetti({
         particleCount: 80,
         spread: 70,

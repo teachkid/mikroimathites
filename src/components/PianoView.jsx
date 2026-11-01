@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { playPianoNote, playFanfare, playPop, speakText, speakCheer } from '../utils/sound';
+import { playPianoNote, playFanfare, playPop, speakText } from '../utils/sound';
 import { useAuth } from '../context/AuthContext';
 import { useViewMode } from '../context/ViewModeContext';
 import confetti from 'canvas-confetti';
@@ -78,7 +78,6 @@ export default function PianoView({ onAddStar, soundEnabled }) {
         if (nextStep >= currentSong.notes.length) {
           // Song Completed!
           playFanfare();
-          speakCheer();
           confetti({
             particleCount: 100,
             spread: 80,
