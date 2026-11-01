@@ -6,6 +6,14 @@ import { validateLetterDrawing } from '../utils/letterValidator';
 import confetti from 'canvas-confetti';
 import { Volume2, ArrowLeft, ArrowRight, RotateCcw, Award, Edit3, Eye, AlertCircle, CheckCircle } from 'lucide-react';
 
+const SPOKEN_LETTER_PREFIX = {
+  'Ε': 'Έψιλον',
+  'Η': 'Ήτα',
+  'Ο': 'Όμικρον',
+  'Υ': 'Ύψιλον',
+  'Ω': 'Ωμέγα',
+};
+
 export default function AlphabetView({ onAddStar, soundEnabled }) {
   const { recordStat } = useAuth();
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -17,10 +25,11 @@ export default function AlphabetView({ onAddStar, soundEnabled }) {
 
   const current = ALPHABET_DATA[selectedIndex];
 
-  // Pronounce letter association (e.g. "Α όπως αρκούδα", "Β όπως βάτραχος")
+  // Pronounce letter association (e.g. "Α όπως αρκούδα", "Έψιλον όπως ελέφαντας", "Ήτα όπως ήλιος", "Όμικρον όπως ομπρέλα", "Ωμέγα όπως ωκεανός")
   const speakCurrent = useCallback(() => {
     if (soundEnabled) {
-      speakText(`${current.letterUpper} όπως ${current.word}`);
+      const prefix = SPOKEN_LETTER_PREFIX[current.letterUpper] || current.letterUpper;
+      speakText(`${prefix} όπως ${current.word.toLowerCase()}`);
     }
   }, [current, soundEnabled]);
 
