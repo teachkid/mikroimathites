@@ -12,13 +12,18 @@ import PianoView from './components/PianoView';
 import BalloonPopView from './components/BalloonPopView';
 import ShadowMatchingView from './components/ShadowMatchingView';
 import StickerAlbumView from './components/StickerAlbumView';
+import SpellingGameView from './components/SpellingGameView';
 import AuthModal from './components/AuthModal';
 import ParentZoneModal from './components/ParentZoneModal';
 import ScoreboardModal from './components/ScoreboardModal';
 import StarShopModal from './components/StarShopModal';
 import FeedbackModal from './components/FeedbackModal';
+import PrintablesModal from './components/PrintablesModal';
+import BreakTimeModal from './components/BreakTimeModal';
+import PWAInstallPrompt from './components/PWAInstallPrompt';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ViewModeProvider } from './context/ViewModeContext';
+import { ScreenTimeProvider } from './context/ScreenTimeContext';
 import MobileSimulatorWrapper from './components/MobileSimulatorWrapper';
 import { setSoundMuted } from './utils/sound';
 
@@ -39,6 +44,7 @@ function MainApp() {
   const [isScoreboardOpen, setIsScoreboardOpen] = useState(false);
   const [isShopOpen, setIsShopOpen] = useState(false);
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
+  const [isPrintablesOpen, setIsPrintablesOpen] = useState(false);
 
   const { activeChild, addStarToActiveChild } = useAuth();
 
@@ -49,6 +55,7 @@ function MainApp() {
         setCurrentScreen('home');
         setIsAuthOpen(false);
         setIsParentZoneOpen(false);
+        setIsPrintablesOpen(false);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -83,6 +90,7 @@ function MainApp() {
           onOpenScoreboard={() => setIsScoreboardOpen(true)}
           onOpenShop={() => setIsShopOpen(true)}
           onOpenFeedback={() => setIsFeedbackOpen(true)}
+          onOpenPrintables={() => setIsPrintablesOpen(true)}
         />
 
         <main className="pb-8 sm:pb-12">
@@ -93,16 +101,26 @@ function MainApp() {
                   setIsScoreboardOpen(true);
                 } else if (catId === 'shop') {
                   setIsShopOpen(true);
+                } else if (catId === 'printables') {
+                  setIsPrintablesOpen(true);
                 } else {
                   setCurrentScreen(catId);
                 }
               }}
+              onOpenPrintables={() => setIsPrintablesOpen(true)}
               soundEnabled={soundEnabled}
             />
           )}
 
           {currentScreen === 'alphabet' && (
             <AlphabetView
+              onAddStar={addStarToActiveChild}
+              soundEnabled={soundEnabled}
+            />
+          )}
+
+          {currentScreen === 'spelling' && (
+            <SpellingGameView
               onAddStar={addStarToActiveChild}
               soundEnabled={soundEnabled}
             />
@@ -182,11 +200,12 @@ function MainApp() {
       {/* Auth Modal (Login & Register) */}
       <AuthModal isOpen={isAuthOpen} onClose={() => setIsAuthOpen(false)} />
 
-      {/* Parent Zone Modal (Child Lock & Profile Management) */}
+      {/* Parent Zone Modal (Child Lock, Profiles & Screen Time) */}
       <ParentZoneModal
         isOpen={isParentZoneOpen}
         onClose={() => setIsParentZoneOpen(false)}
         onOpenFeedback={() => setIsFeedbackOpen(true)}
+        onOpenPrintables={() => setIsPrintablesOpen(true)}
       />
 
       {/* Scoreboard & Achievements Modal */}
@@ -208,20 +227,42 @@ function MainApp() {
         onClose={() => setIsFeedbackOpen(false)}
       />
 
+      {/* Printables Modal */}
+      <PrintablesModal
+        isOpen={isPrintablesOpen}
+        onClose={() => setIsPrintablesOpen(false)}
+      />
+
+      {/* Screen Time Limit Break Modal */}
+      <BreakTimeModal />
+
       {/* Cross-Platform Footer with Safe Area Bottom Padding */}
       <footer className="text-center py-4 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] text-xs sm:text-sm text-amber-900/70 font-bold border-t border-amber-200/60 bg-amber-50/60">
         <p>
           🎈 <strong>Μικροί Μαθητές</strong> • Εκπαιδευτική εφαρμογή για PC, Mac, iPad, Android & iPhone
         </p>
         <p className="text-[11px] text-amber-800/60 mt-0.5">
-          💡 Σε κινητό ή tablet: Πάτησε «Προσθήκη στην οθόνη αφετηρίας» για εμπειρία πλήρους οθόνης σαν πραγματική εφαρμογή!
+          💡 Σε κινητό ή tablet: Πάτησε «Εγκατάσταση App» για εμπειρία πλήρους οθόνης ακόμη και χωρίς ίντερνετ (Offline)!
         </p>
-        <div className="mt-2.5 flex flex-wrap items-center justify-center gap-2">
+
+        <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
+          {/* PWA Install Button */}
+          <PWAInstallPrompt compact />
+
+          {/* Printable Worksheets Button */}
+          <button
+            onClick={() => setIsPrintablesOpen(true)}
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-2xl bg-amber-200/90 hover:bg-amber-300 text-amber-950 text-xs font-black transition-all active:scale-95 shadow-xs cursor-pointer border border-amber-300"
+          >
+            <span>🖨️ Εκτυπώσιμα Φύλλα</span>
+          </button>
+
+          {/* Feedback & Bug Button */}
           <button
             onClick={() => setIsFeedbackOpen(true)}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-200/80 hover:bg-amber-300 text-amber-950 text-[11px] sm:text-xs font-black transition-all active:scale-95 shadow-xs"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-2xl bg-white hover:bg-slate-100 text-slate-800 text-xs font-black transition-all active:scale-95 shadow-xs cursor-pointer border border-slate-300"
           >
-            <span>💡 Πρότεινε Ιδέα ή Αναφορά Προβλήματος</span>
+            <span>💡 Ιδέες / Bugs</span>
           </button>
         </div>
       </footer>
@@ -232,11 +273,13 @@ function MainApp() {
 export default function App() {
   return (
     <AuthProvider>
-      <ViewModeProvider>
-        <MobileSimulatorWrapper>
-          <MainApp />
-        </MobileSimulatorWrapper>
-      </ViewModeProvider>
+      <ScreenTimeProvider>
+        <ViewModeProvider>
+          <MobileSimulatorWrapper>
+            <MainApp />
+          </MobileSimulatorWrapper>
+        </ViewModeProvider>
+      </ScreenTimeProvider>
     </AuthProvider>
   );
 }

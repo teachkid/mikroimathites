@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { playPop, playFanfare } from '../utils/sound';
-import { X, ShieldCheck, UserPlus, LogOut, Star, CheckCircle, Baby } from 'lucide-react';
+import { X, ShieldCheck, UserPlus, LogOut, Star, CheckCircle, Baby, Clock } from 'lucide-react';
+import { useScreenTime } from '../context/ScreenTimeContext';
 import ViewModeSwitcher from './ViewModeSwitcher';
 
 const AVATARS = ['🦁', '🐼', '🦄', '🚀', '🐱', '🐶', '🐻', '🐸', '🦋', '🦖'];
 
-export default function ParentZoneModal({ isOpen, onClose, onOpenFeedback }) {
+export default function ParentZoneModal({ isOpen, onClose, onOpenFeedback, onOpenPrintables }) {
   const { currentUser, activeChild, switchChild, addChild, logout } = useAuth();
+  const { limitMinutes, setLimitMinutes, remainingSeconds } = useScreenTime();
 
   // Parent Gate Math Challenge state
   const [isUnlocked, setIsUnlocked] = useState(false);
@@ -283,6 +285,64 @@ export default function ParentZoneModal({ isOpen, onClose, onOpenFeedback }) {
                   </p>
                 </div>
                 <ViewModeSwitcher />
+              </div>
+            </div>
+
+            {/* Screen Time Limit Setting */}
+            <div className="mb-4 p-4 rounded-2xl bg-indigo-50/80 border-2 border-indigo-200">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                <div>
+                  <h4 className="text-xs font-black text-indigo-950 flex items-center gap-1.5">
+                    <Clock className="w-4 h-4 text-indigo-600" />
+                    <span>Όριο Χρόνου Οθόνης (Screen Time)</span>
+                  </h4>
+                  <p className="text-[11px] text-indigo-800/80 font-bold mt-0.5">
+                    {limitMinutes > 0
+                      ? `Απομένουν: ${Math.floor(remainingSeconds / 60)}λ ${remainingSeconds % 60}δ`
+                      : 'Ορίστε ημερήσιο όριο για ξεκούραση ματιών'}
+                  </p>
+                </div>
+
+                <select
+                  value={limitMinutes}
+                  onChange={(e) => {
+                    playPop();
+                    setLimitMinutes(e.target.value);
+                  }}
+                  className="bg-white border-2 border-indigo-300 rounded-xl px-3 py-1.5 text-xs font-black text-indigo-950 cursor-pointer focus:outline-hidden"
+                >
+                  <option value={0}>♾️ Χωρίς όριο (Απεριόριστα)</option>
+                  <option value={15}>⏱️ 15 λεπτά</option>
+                  <option value={20}>⏱️ 20 λεπτά</option>
+                  <option value={30}>⏱️ 30 λεπτά</option>
+                  <option value={45}>⏱️ 45 λεπτά</option>
+                  <option value={60}>⏱️ 60 λεπτά</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Printables Link */}
+            <div className="mb-4 p-4 rounded-2xl bg-blue-50/80 border-2 border-blue-200">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <h4 className="text-xs font-black text-blue-950 flex items-center gap-1.5">
+                    <span>🖨️ Εκτυπώσιμα Φύλλα Εργασίας & Χρωμοσελίδες</span>
+                  </h4>
+                  <p className="text-[11px] text-blue-800/80 font-bold mt-0.5">
+                    Εκτυπώστε δωρεάν ασκήσεις προγραφής και ζωγραφικής για το σπίτι
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    playPop();
+                    onClose();
+                    onOpenPrintables?.();
+                  }}
+                  className="px-3.5 py-1.5 rounded-xl bg-blue-500 hover:bg-blue-600 text-white font-black text-xs kid-shadow-sm active:scale-95 transition-all self-start sm:self-auto cursor-pointer"
+                >
+                  Προβολή Φύλλων
+                </button>
               </div>
             </div>
 

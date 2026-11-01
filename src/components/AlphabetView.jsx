@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { ALPHABET_DATA } from '../data/alphabet';
-import { speakText, playPop, playFanfare } from '../utils/sound';
+import { speakText, playPop, playFanfare, speakCheer } from '../utils/sound';
 import { useAuth } from '../context/AuthContext';
 import { validateLetterDrawing } from '../utils/letterValidator';
 import confetti from 'canvas-confetti';
@@ -133,6 +133,7 @@ export default function AlphabetView({ onAddStar, soundEnabled }) {
 
     if (result.success) {
       playFanfare();
+      speakCheer();
       confetti({
         particleCount: 80,
         spread: 70,

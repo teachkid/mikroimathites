@@ -2,7 +2,7 @@
   "name": "Μικροί Μαθητές",
   "short_name": "Μαθητές",
   "description": "Διασκεδαστική εκπαιδευτική εφαρμογή για παιδιά: Αλφαβήτα, Αριθμοί, Σχήματα, Χρώματα, Ζώα και Ζωγραφική",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#fef3c7",

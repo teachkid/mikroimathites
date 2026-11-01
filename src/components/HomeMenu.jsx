@@ -1,9 +1,10 @@
 import React from 'react';
 import { playPop } from '../utils/sound';
 import { useViewMode } from '../context/ViewModeContext';
-import { Monitor, Smartphone, Sparkles } from 'lucide-react';
+import { Monitor, Smartphone, Sparkles, Printer, Download } from 'lucide-react';
+import PWAInstallPrompt from './PWAInstallPrompt';
 
-export default function HomeMenu({ onSelectCategory }) {
+export default function HomeMenu({ onSelectCategory, onOpenPrintables }) {
   const { effectiveMode } = useViewMode();
   const isMobile = effectiveMode === 'mobile';
   const categories = [
@@ -16,6 +17,16 @@ export default function HomeMenu({ onSelectCategory }) {
       border: 'border-red-300',
       bgGlow: 'hover:shadow-rose-300/60',
       badge: '24 Γράμματα',
+    },
+    {
+      id: 'spelling',
+      title: 'Φτιάξε τη Λέξη',
+      subtitle: 'Βάλε τα γράμματα στη σειρά & μάθε ορθογραφία!',
+      emoji: '🐱',
+      color: 'from-orange-400 to-amber-500',
+      border: 'border-orange-300',
+      bgGlow: 'hover:shadow-orange-300/60',
+      badge: 'ΝΕΟ • Λέξεις',
     },
     {
       id: 'numbers',
@@ -136,6 +147,16 @@ export default function HomeMenu({ onSelectCategory }) {
       border: 'border-pink-300',
       bgGlow: 'hover:shadow-pink-300/60',
       badge: 'Δώρα',
+    },
+    {
+      id: 'printables',
+      title: 'Εκτυπώσιμα Φύλλα',
+      subtitle: 'Εκτύπωσε ασκήσεις προγραφής & χρωμοσελίδες για το σπίτι!',
+      emoji: '🖨️',
+      color: 'from-blue-500 to-indigo-600',
+      border: 'border-blue-300',
+      bgGlow: 'hover:shadow-blue-300/60',
+      badge: 'Εκτύπωση PDF',
     },
   ];
 

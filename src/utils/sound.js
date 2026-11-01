@@ -225,3 +225,22 @@ export function playFanfare() {
     // Ignore
   }
 }
+
+// Greek audio cheers to warmly encourage children on achievements
+const GREEK_CHEERS = [
+  'Μπράβο! Τα κατάφερες!',
+  'Είσαι αστέρι!',
+  'Καταπληκτική δουλειά!',
+  'Τέλεια! Συνέχισε έτσι!',
+  'Πολύ καλά! Είσαι πανέξυπνος!',
+  'Φανταστικά!',
+];
+
+export function speakCheer() {
+  if (isGloballyMuted) return;
+  const cheer = GREEK_CHEERS[Math.floor(Math.random() * GREEK_CHEERS.length)];
+  setTimeout(() => {
+    speakText(cheer);
+  }, 450);
+}
+

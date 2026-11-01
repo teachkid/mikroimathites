@@ -19,6 +19,7 @@ import { playPop } from '../utils/sound';
 import { useAuth } from '../context/AuthContext';
 import { useViewMode } from '../context/ViewModeContext';
 import ViewModeSwitcher from './ViewModeSwitcher';
+import PWAInstallPrompt from './PWAInstallPrompt';
 
 export default function Header({
   currentScreen,
@@ -30,6 +31,7 @@ export default function Header({
   onOpenScoreboard,
   onOpenShop,
   onOpenFeedback,
+  onOpenPrintables,
 }) {
   const { currentUser, activeChild, isGuest } = useAuth();
   const { effectiveMode, setViewMode } = useViewMode();
@@ -376,6 +378,22 @@ export default function Header({
                 <span className="text-xs text-pink-700 font-bold">Δώρα →</span>
               </button>
 
+              {/* Printables */}
+              <button
+                onClick={() => {
+                  playPop();
+                  setIsMobileMenuOpen(false);
+                  onOpenPrintables?.();
+                }}
+                className="w-full flex items-center justify-between p-3 rounded-2xl bg-blue-50 hover:bg-blue-100 border-2 border-blue-200 font-black text-blue-950 text-sm active:scale-98 transition-all"
+              >
+                <div className="flex items-center gap-2.5">
+                  <span className="text-xl">🖨️</span>
+                  <span>Εκτυπώσιμα Φύλλα (PDF)</span>
+                </div>
+                <span className="text-xs text-blue-700 font-bold">Εκτύπωση →</span>
+              </button>
+
               {/* Parent Zone / Login */}
               <button
                 onClick={() => {
@@ -413,10 +431,17 @@ export default function Header({
               </button>
             </div>
 
-            {/* View Mode Switcher inside Sheet */}
-            <div className="pt-3 border-t border-amber-100 flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-700">Έκδοση Προβολής:</span>
-              <ViewModeSwitcher />
+            {/* PWA Install Button & View Mode Switcher inside Sheet */}
+            <div className="pt-3 border-t border-amber-100 flex flex-col gap-2.5">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-slate-700">Εγκατάσταση:</span>
+                <PWAInstallPrompt compact />
+              </div>
+
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-slate-700">Έκδοση Προβολής:</span>
+                <ViewModeSwitcher />
+              </div>
             </div>
           </div>
         </div>
